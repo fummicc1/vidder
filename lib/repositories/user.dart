@@ -1,14 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:vidder/api/firebase/auth.dart';
 import 'package:vidder/api/firebase/firestore.dart';
 
-import '../models/user.dart';
-import '../models/user.dart';
-import '../models/user.dart';
-import '../models/user.dart';
 import '../models/user.dart';
 
 enum UserRepositoryError {
@@ -23,14 +18,6 @@ class UserRepository {
 
   static User _user;
 
-  static initialize() {
-    _authClient.getUID().then((userID) {
-      _firestoreClient.listenDocument(collectionName: User.CollectionName, documentName: userID).listen((snapshot) {
-        _user = User.fromMap(snapshot.data);
-      });
-    });
-  }
-  
   static Future<User> fetchUser({bool cache = true}) async {
     if (cache) {
       return Future.value(_user);
@@ -44,7 +31,8 @@ class UserRepository {
       if (snapshot.data == null) {
         return Future.error(UserRepositoryError.NoData);
       }
-      return Future.value(User.fromMap(snapshot.data));
+      _user = User.fromMap(snapshot.data);
+      return Future.value(_user);
     } catch (error) {
       return Future.error(error);
     }

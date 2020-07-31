@@ -36,6 +36,8 @@ dependencies:
   cloud_firestore: ^0.13.7
   firebase_crashlytics: ^0.1.4+1
   flutter_launcher_icons: ^0.7.5
+  file_picker: ^1.13.0+1
+  video_player: ^0.10.11+2
 
 dev_dependencies:
   flutter_test:

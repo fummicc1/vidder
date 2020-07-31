@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:vidder/models/user.dart';
-import 'package:vidder/repository/user_repository.dart';
+import 'package:vidder/repositories/user.dart';
 
 class HomeState extends ChangeNotifier {
   User user;

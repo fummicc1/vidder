@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/states/home.dart';
-import 'package:vidder/states/timeline.dart';
-import 'package:vidder/ui/pages/create_post.dart';
 import 'package:vidder/ui/pages/home.dart';
-import 'package:vidder/ui/pages/timeline.dart';
 
 void main() {
   runApp(MyApp());

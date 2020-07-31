@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vidder/repository/user_repository.dart';
+import 'package:vidder/repositories/user.dart';
 import 'package:vidder/states/chat.dart';
+import 'package:vidder/states/create_post.dart';
 import 'package:vidder/states/home.dart';
 import 'package:vidder/states/timeline.dart';
 import 'package:vidder/ui/pages/chat.dart';
@@ -55,14 +56,9 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("ホーム")),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text("ホーム")
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.email),
-            title: Text("メッセージ")
-          ),
+              icon: Icon(Icons.email), title: Text("メッセージ")),
         ],
         onTap: (index) {
           setState(() {
@@ -81,7 +77,8 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             settings: const RouteSettings(name: "/create_post"),
-            builder: (context) => CreatePostPage(),
+            builder: (context) => ChangeNotifierProvider(
+                create: (_) => CreatePostState(), child: CreatePostPage()),
             fullscreenDialog: true,
           ));
         },

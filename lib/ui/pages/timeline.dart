@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/states/timeline.dart';
+import 'package:video_player/video_player.dart';
 
 class TimelinePage extends StatefulWidget {
   @override
@@ -14,7 +15,9 @@ class _TimelinePageState extends State<TimelinePage> {
     return ListView.builder(
       itemCount: timelineState.posts.length,
       itemBuilder: (context, index) {
-        return Container();
+        final post = timelineState.posts[index];
+        final VideoPlayerController videoPlayerController = VideoPlayerController.network(post.videoURL)..initialize();
+        return VideoPlayer(videoPlayerController);
       },
     );
   }
