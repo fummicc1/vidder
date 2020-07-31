@@ -4,6 +4,7 @@ class Post {
   String content;
   String userID;
   List<String> likes;
+  bool isDraft;
 
   static const CollectionName = "posts";
 
@@ -13,6 +14,7 @@ class Post {
     content = data["content"];
     userID = data["user_id"];
     likes = data["likes"];
+    isDraft = data["is_draft"];
   }
 
   Map<String, dynamic> get data => {
@@ -21,5 +23,6 @@ class Post {
     "content": content,
     "user_id": userID,
     "likes": likes,
+    "is_draft": isDraft,
   };
 }

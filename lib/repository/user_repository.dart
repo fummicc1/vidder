@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:vidder/api/firebase/auth.dart';
 import 'package:vidder/api/firebase/firestore.dart';
 
@@ -44,6 +45,17 @@ class UserRepository {
         return Future.error(UserRepositoryError.NoData);
       }
       return Future.value(User.fromMap(snapshot.data));
+    } catch (error) {
+      return Future.error(error);
+    }
+  }
+
+  static Future<User> signInUserAnonymously() async {
+    try {
+      final firebaseUser = await _authClient.signInAnonymously();
+      final User user = User.fromFirebase(firebaseUser);
+      await _firestoreClient.setDocument(collectionName: User.CollectionName, documentName: user.uid, data: user.data);
+      return Future.value(user);
     } catch (error) {
       return Future.error(error);
     }

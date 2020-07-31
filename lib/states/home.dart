@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:vidder/models/user.dart';
 import 'package:vidder/repository/user_repository.dart';
@@ -8,6 +10,7 @@ class HomeState extends ChangeNotifier {
   Future getUser() async {
     final user = await UserRepository.fetchUser(cache: false);
     this.user = user;
+    notifyListeners();
     return true;
   }
 
@@ -15,11 +18,20 @@ class HomeState extends ChangeNotifier {
     try {
       final response = await UserRepository.updateUser(user);
       if (refresh) {
-        final user = await UserRepository.fetchUser(cache: false);
-        this.user = user;
-        notifyListeners();
+        getUser();
       }
       return response;
+    } catch (error) {
+      return Future.error(error);
+    }
+  }
+
+  Future createAnonymousUser() async {
+    try {
+      final User user = await UserRepository.signInUserAnonymously();
+      this.user = user;
+      notifyListeners();
+      return Future.value(user);
     } catch (error) {
       return Future.error(error);
     }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vidder/states/timeline.dart';
 
 class TimelinePage extends StatefulWidget {
   @override
@@ -8,14 +10,12 @@ class TimelinePage extends StatefulWidget {
 class _TimelinePageState extends State<TimelinePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-      ),
-      body: Column(
-        children: [
-
-        ],
-      ),
+    final TimelineState timelineState = Provider.of(context);
+    return ListView.builder(
+      itemCount: timelineState.posts.length,
+      itemBuilder: (context, index) {
+        return Container();
+      },
     );
   }
 }
