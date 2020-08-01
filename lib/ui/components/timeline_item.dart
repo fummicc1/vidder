@@ -1,7 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vidder/models/post.dart';
+import 'package:vidder/states/timeline.dart';
+import 'package:vidder/ui/components/error_dialog.dart';
 import 'package:video_player/video_player.dart';
 
 class TimelineItemWidget extends StatefulWidget {
@@ -30,6 +33,7 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final TimelineState timelineState = Provider.of(context);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Card(
@@ -37,10 +41,28 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
         elevation: 8,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
-          child: AspectRatio(
-            aspectRatio: videoPlayerController.value?.aspectRatio,
-            child: VideoPlayer(videoPlayerController),
-          ),
+          child: Stack(
+            children: [
+              AspectRatio(
+                aspectRatio: videoPlayerController.value?.aspectRatio,
+                child: VideoPlayer(videoPlayerController),
+              ),
+              Positioned(
+                top: 16,
+                right: 16,
+                width: 40,
+                height: 40,
+                child: FlatButton(
+                  child: Icon((Icons.delete), size: 32, color: Colors.white,),
+                  onPressed: () {
+                    timelineState.deletePost(post: widget.post).catchError((error) {
+                      showDialog(context: context, child: errorDialog(context));
+                    });
+                  },
+                ),
+              )
+            ],
+          )
         )
       ),
     );

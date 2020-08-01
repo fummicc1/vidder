@@ -73,7 +73,8 @@ class _HomePageState extends State<HomePage> {
   Widget floatingActionButton(BuildContext context) {
     if (_currentIndex == 0) {
       return FloatingActionButton(
-        child: Icon(Icons.create, size: 24),
+        elevation: 8,
+        child: Icon(Icons.create, size: 32),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             settings: const RouteSettings(name: "/create_post"),

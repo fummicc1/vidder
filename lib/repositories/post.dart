@@ -11,7 +11,10 @@ class PostRepository {
 
   static List<Post> posts;
 
-  static Future fetchPosts() async {
+  static Future fetchPosts({bool cache = false}) async {
+    if (cache) {
+      return Future.value(posts);
+    }
     try {
       final posts = await _firestoreClient.getCollection(collectionName: Post.CollectionName);
       return posts.documents.map((document) => Post.fromData(document.data)).toList();
@@ -19,11 +22,17 @@ class PostRepository {
       return Future.error(error);
     }
   }
+  
+  static Future deletePost({@required Post post}) async {
+    await _firestoreClient.deleteDocument(collectionName: Post.CollectionName, documentName: post.uid);
+    await _storageClient.delete(path: "posts", name: "${post.uid}.${post.extension}");
+    return Future.value(null);
+  }
 
-  static Future createPost({@required Post post, @required File file, String extension = "mp4"}) async {
+  static Future createPost({@required Post post, @required File file}) async {
     try {
       final uid = _firestoreClient.getDocumentID(collectionName: Post.CollectionName);
-      final snapshot = await _storageClient.upload(path: "posts", name: "$uid.$extension", file: file);
+      final snapshot = await _storageClient.upload(path: "posts", name: "$uid.${post.extension}", file: file);
       final String url = await _storageClient.getDownloadURL(reference: snapshot.ref);
       post.uid = uid;
       post.videoURL = url;
