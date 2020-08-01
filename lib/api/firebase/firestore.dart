@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 class FirestoreClient {
   final Firestore _firestore = Firestore.instance;
 
+  String getDocumentID({@required String collectionName}) => _firestore.collection(collectionName).document().documentID;
+
   Future<DocumentSnapshot> getDocumentOfSubCollection(
   {@required String collectionName, @required String documentID, @required String subCollectionName, @required String subDocumentID}) {
     return _firestore.collection(collectionName).document(documentID).collection(subCollectionName).document(subDocumentID).get();
