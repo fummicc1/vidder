@@ -17,39 +17,36 @@ class CreatePostPage extends StatelessWidget {
               alignment: FractionalOffset.centerLeft,
               maxWidth: 160,
               child: FlatButton(
-                child: Text("キャンセル",
-                    style: Theme.of(context)
-                        .textTheme
-                        .button),
+                child: Text("キャンセル", style: Theme.of(context).textTheme.button),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               )),
           actions: [
             FlatButton(
-              child: Text(
-                "下書き",
-                style: Theme.of(context)
-                    .textTheme
-                    .button
-              ),
+              child: Text("下書き", style: Theme.of(context).textTheme.button),
               onPressed: () {},
             ),
             FlatButton(
-              child: Text(
-                "投稿する",
-                style: Theme.of(context)
-                    .textTheme
-                    .button
-              ),
-              onPressed: createPostState.isValidInput ? () async {
-                try {
-                  await createPostState.createPost();
-                  Navigator.of(context).pop();
-                } catch (error) {
-                  showDialog(context: context, builder: (context) => errorDialog(context));
-                }
-              } : null,
+              child: Text("投稿する", style: Theme.of(context).textTheme.button),
+              onPressed: createPostState.isValidInput
+                  ? () async {
+                      try {
+                        showDialog(
+                          barrierDismissible: false,
+                            context: context,
+                            child: Center(child: CircularProgressIndicator()));
+                        await createPostState.createPost();
+                        await context.read<TimelineState>().fetchPosts(cache: false);
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      } catch (error) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => errorDialog(context));
+                      }
+                    }
+                  : null,
             )
           ],
         ),

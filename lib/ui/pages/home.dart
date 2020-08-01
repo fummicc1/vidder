@@ -19,12 +19,9 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> titles = [Text("タイムライン"), Text("メッセージ")];
 
-  List<Widget> widgets = [
-    ChangeNotifierProvider(
-      child: TimelinePage(),
-      create: (_) => TimelineState(),
-    ),
-    ChangeNotifierProvider(child: ChatPage(), create: (_) => ChatState()),
+  List<Widget> _widgets = [
+    TimelinePage(),
+    ChatPage(),
   ];
 
   @override
@@ -52,7 +49,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: titles[_currentIndex],
       ),
-      body: widgets[_currentIndex],
+      body: _widgets[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: [
