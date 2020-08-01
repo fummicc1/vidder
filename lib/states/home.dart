@@ -8,10 +8,14 @@ class HomeState extends ChangeNotifier {
   User user;
 
   Future getUser() async {
-    final user = await UserRepository.fetchUser(cache: false);
-    this.user = user;
-    notifyListeners();
-    return true;
+    try {
+      final user = await UserRepository.fetchUser(cache: false);
+      this.user = user;
+      notifyListeners();
+      return true;
+    } catch (error) {
+      return Future.error(error);
+    }
   }
 
   Future updateUser(User user, {bool refresh = true}) async {

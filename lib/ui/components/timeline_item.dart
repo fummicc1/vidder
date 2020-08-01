@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/models/post.dart';
+import 'package:vidder/states/home.dart';
 import 'package:vidder/states/timeline.dart';
 import 'package:vidder/ui/components/error_dialog.dart';
 import 'package:video_player/video_player.dart';
@@ -52,20 +53,29 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
                 right: 16,
                 width: 40,
                 height: 40,
-                child: FlatButton(
-                  child: Icon((Icons.delete), size: 32, color: Colors.white,),
-                  onPressed: () {
-                    timelineState.deletePost(post: widget.post).catchError((error) {
-                      showDialog(context: context, child: errorDialog(context));
-                    });
-                  },
-                ),
-              )
+                child: deleteButton(context, post: widget.post)
+              ),
             ],
           )
         )
       ),
     );
+  }
+
+  Widget deleteButton(BuildContext context, {@required Post post}) {
+    final TimelineState timelineState = Provider.of(context);
+    final HomeState homeState = Provider.of(context);
+    if (post.userID == homeState.user.uid) {
+      return FlatButton(
+        child: Icon((Icons.delete), size: 32, color: Colors.black,),
+        onPressed: () {
+          timelineState.deletePost(post: widget.post).catchError((error) {
+            showDialog(context: context, child: errorDialog(context));
+          });
+        },
+      );
+    }
+    return Container();
   }
 
   @override
