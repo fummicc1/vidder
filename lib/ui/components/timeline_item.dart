@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/models/post.dart';
@@ -54,6 +52,11 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
                 width: 40,
                 height: 40,
                 child: deleteButton(context, post: widget.post)
+              ),
+              Positioned(
+                top: 16,
+                left: 16,
+                child: Text(widget.post.title, style: Theme.of(context).textTheme.headline5.apply(fontWeightDelta: 2),),
               ),
             ],
           )
