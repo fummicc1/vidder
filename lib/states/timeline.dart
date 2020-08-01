@@ -14,4 +14,12 @@ class TimelineState extends ChangeNotifier {
     this.posts = posts;
     notifyListeners();
   }
+
+  Future deletePost({@required Post post, bool refresh = true}) async {
+    await PostRepository.deletePost(post: post);
+    if (refresh) {
+      await fetchPosts();
+    }
+    return Future.value(null);
+  }
 }

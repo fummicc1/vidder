@@ -19,8 +19,7 @@ class CreatePostPage extends StatelessWidget {
                 child: Text("キャンセル",
                     style: Theme.of(context)
                         .textTheme
-                        .button
-                        .apply(color: Colors.white)),
+                        .button),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
@@ -32,7 +31,6 @@ class CreatePostPage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .button
-                    .apply(color: Colors.white),
               ),
               onPressed: () {},
             ),
@@ -42,7 +40,6 @@ class CreatePostPage extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .button
-                    .apply(color: Colors.white),
               ),
               onPressed: () async {
                 try {

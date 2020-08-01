@@ -5,10 +5,11 @@ class Post {
   String userID;
   List<String> likes;
   bool isDraft;
+  String extension;
 
   static const CollectionName = "posts";
 
-  Post({this.uid = null, this.videoURL = null, this.likes, this.title, this.userID, this.isDraft = false});
+  Post({this.uid = null, this.videoURL = null, this.likes, this.title, this.userID, this.isDraft = false, this.extension = "mp4"});
 
   Post.fromData(Map<String, dynamic> data) {
     uid = data["uid"];
@@ -17,6 +18,7 @@ class Post {
     userID = data["user_id"];
     likes = data["likes"];
     isDraft = data["is_draft"];
+    extension = data["extension"];
   }
 
   Map<String, dynamic> get data => {
@@ -26,5 +28,6 @@ class Post {
     "user_id": userID,
     "likes": likes,
     "is_draft": isDraft,
+    "extension": extension
   };
 }
