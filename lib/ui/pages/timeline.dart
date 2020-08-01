@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/states/timeline.dart';
+import 'package:vidder/ui/components/timeline_item.dart';
 import 'package:video_player/video_player.dart';
 
 class TimelinePage extends StatefulWidget {
@@ -16,8 +17,7 @@ class _TimelinePageState extends State<TimelinePage> {
       itemCount: timelineState.posts.length,
       itemBuilder: (context, index) {
         final post = timelineState.posts[index];
-        final VideoPlayerController videoPlayerController = VideoPlayerController.network(post.videoURL)..initialize();
-        return VideoPlayer(videoPlayerController);
+        return TimelineItemWidget(post: post);
       },
     );
   }
