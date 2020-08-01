@@ -42,14 +42,14 @@ class CreatePostPage extends StatelessWidget {
                     .textTheme
                     .button
               ),
-              onPressed: () async {
+              onPressed: createPostState.isValidInput ? () async {
                 try {
                   await createPostState.createPost();
                   Navigator.of(context).pop();
                 } catch (error) {
                   showDialog(context: context, builder: (context) => errorDialog(context));
                 }
-              },
+              } : null,
             )
           ],
         ),
