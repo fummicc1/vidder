@@ -55,13 +55,17 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
                   Positioned(
                     top: 16,
                     left: 16,
-                    child: Text(
-                      widget.post.title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          .apply(fontWeightDelta: 2),
-                      maxLines: 3,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      child: Text(
+                        widget.post.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            .apply(fontWeightDelta: 2),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 10,
+                      ),
                     ),
                   ),
                 ],
