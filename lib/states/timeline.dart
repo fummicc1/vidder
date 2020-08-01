@@ -6,11 +6,11 @@ class TimelineState extends ChangeNotifier {
   List<Post> posts = [];
 
   TimelineState() {
-    fetchPosts();
+    fetchPosts(cache: false);
   }
 
-  fetchPosts() async {
-    final posts = await PostRepository.fetchPosts();
+  fetchPosts({bool cache = true}) async {
+    final posts = await PostRepository.fetchPosts(cache: cache);
     this.posts = posts;
     notifyListeners();
   }

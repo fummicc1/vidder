@@ -32,36 +32,40 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final TimelineState timelineState = Provider.of(context);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 8,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: videoPlayerController.value?.aspectRatio,
-                child: VideoPlayer(videoPlayerController),
-              ),
-              Positioned(
-                top: 16,
-                right: 16,
-                width: 40,
-                height: 40,
-                child: deleteButton(context, post: widget.post)
-              ),
-              Positioned(
-                top: 16,
-                left: 16,
-                child: Text(widget.post.title, style: Theme.of(context).textTheme.headline5.apply(fontWeightDelta: 2),),
-              ),
-            ],
-          )
-        )
-      ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          elevation: 8,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Stack(
+                children: [
+                  AspectRatio(
+                    aspectRatio: videoPlayerController.value?.aspectRatio,
+                    child: VideoPlayer(videoPlayerController),
+                  ),
+                  Positioned(
+                      top: 16,
+                      right: 16,
+                      width: 40,
+                      height: 40,
+                      child: deleteButton(context, post: widget.post)),
+                  Positioned(
+                    top: 16,
+                    left: 16,
+                    child: Text(
+                      widget.post.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          .apply(fontWeightDelta: 2),
+                      maxLines: 3,
+                    ),
+                  ),
+                ],
+              ))),
     );
   }
 
@@ -70,7 +74,11 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
     final HomeState homeState = Provider.of(context);
     if (post.userID == homeState.user.uid) {
       return FlatButton(
-        child: Icon((Icons.delete), size: 32, color: Colors.black,),
+        child: Icon(
+          (Icons.delete),
+          size: 32,
+          color: Colors.black,
+        ),
         onPressed: () {
           timelineState.deletePost(post: widget.post).catchError((error) {
             showDialog(context: context, child: errorDialog(context));

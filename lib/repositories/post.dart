@@ -11,7 +11,7 @@ class PostRepository {
 
   static List<Post> posts;
 
-  static Future fetchPosts({bool cache = false}) async {
+  static Future fetchPosts({bool cache = true}) async {
     if (cache) {
       return Future.value(posts);
     }
