@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
             selectedItemColor: Colors.black
           ),
           primaryColor: Color(0xFF16B4F2),
+          buttonColor: Color(0xFF5FCAF4),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: Color(0xFF5FCAF4),

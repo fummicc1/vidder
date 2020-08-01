@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/repositories/post.dart';
 import 'package:vidder/states/create_post.dart';
+import 'package:vidder/states/timeline.dart';
 import 'package:vidder/ui/components/error_dialog.dart';
 import 'package:video_player/video_player.dart';
 

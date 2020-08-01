@@ -7,9 +7,13 @@ import 'package:vidder/repositories/user.dart';
 class HomeState extends ChangeNotifier {
   User user;
 
-  Future getUser() async {
+  HomeState() {
+    getUser(cache: false);
+  }
+
+  Future getUser({bool cache = true}) async {
     try {
-      final user = await UserRepository.fetchUser(cache: false);
+      final user = await UserRepository.fetchUser(cache: cache);
       this.user = user;
       notifyListeners();
       return true;

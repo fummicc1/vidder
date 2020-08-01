@@ -11,6 +11,8 @@ class CreatePostState extends ChangeNotifier {
   File videoFile;
   VideoPlayerController videoPlayerController;
 
+  bool get isValidInput => title != null && title.isNotEmpty && videoFile != null;
+
   updateTitle(String title) {
     this.title = title;
     notifyListeners();
