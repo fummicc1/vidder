@@ -30,17 +30,17 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Vidder',
           theme: ThemeData(
-              backgroundColor: Color(0xFF5FCAF4),
-              scaffoldBackgroundColor: Color(0xFF5FCAF4),
-              appBarTheme: AppBarTheme(
-                color: Color(0xFF5FCAF4),
+              backgroundColor: const Color(0xFF5FCAF4),
+              scaffoldBackgroundColor: const Color(0xFF5FCAF4),
+              appBarTheme: const AppBarTheme(
+                color: const Color(0xFF5FCAF4),
               ),
-              bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                  backgroundColor: Color(0xFF5FCAF4),
+              bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                  backgroundColor: const Color(0xFF5FCAF4),
                   selectedItemColor: Colors.black
               ),
-              primaryColor: Color(0xFF16B4F2),
-              buttonColor: Color(0xFF5FCAF4),
+              primaryColor: const Color(0xFF16B4F2),
+              buttonColor: const Color(0xFF5FCAF4),
               visualDensity: VisualDensity.adaptivePlatformDensity,
               floatingActionButtonTheme: FloatingActionButtonThemeData(
                   backgroundColor: Color(0xFF5FCAF4),

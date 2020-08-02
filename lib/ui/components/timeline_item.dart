@@ -78,7 +78,7 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
     final HomeState homeState = Provider.of(context);
     if (post.userID == homeState.user.uid) {
       return FlatButton(
-        child: Icon(
+        child: const Icon(
           (Icons.delete),
           size: 32,
           color: Colors.black,

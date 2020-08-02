@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  List<Widget> titles = [Text("タイムライン"), Text("メッセージ")];
+  List<Widget> titles = [const Text("タイムライン"), const Text("メッセージ")];
 
   List<Widget> _widgets = [
     TimelinePage(),
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
     final HomeState homeState = Provider.of(context);
 
     if (homeState.user == null) {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
     return Scaffold(
@@ -53,9 +53,9 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text("ホーム")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.email), title: Text("メッセージ")),
+          const BottomNavigationBarItem(icon: const Icon(Icons.home), title: const Text("ホーム")),
+          const BottomNavigationBarItem(
+              icon: const Icon(Icons.email), title: const Text("メッセージ")),
         ],
         onTap: (index) {
           setState(() {
@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
     if (_currentIndex == 0) {
       return FloatingActionButton(
         elevation: 8,
-        child: Icon(Icons.create, size: 32),
+        child: const Icon(Icons.create, size: 32),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             settings: const RouteSettings(name: "/create_post"),

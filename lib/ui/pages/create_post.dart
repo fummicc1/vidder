@@ -63,7 +63,7 @@ class CreatePostPage extends StatelessWidget {
                     createPostState.updateTitle(text);
                   },
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 createPostState.videoFile == null
                     ? FlatButton(
                         child: Text("動画を選択"),
