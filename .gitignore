@@ -46,3 +46,6 @@ app.*.map.json
 # Firebase
 GoogleService-Info.plist
 google-services.json
+
+# Secret
+/lib/secret.dart

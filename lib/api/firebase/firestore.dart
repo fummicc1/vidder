@@ -24,6 +24,10 @@ class FirestoreClient {
     return _firestore.collection(collectionName).where(fieldName, isEqualTo: fieldValue).getDocuments();
   }
 
+  Future<QuerySnapshot> getCollectionWithContainsQuery({@required String collectionName, @required String fieldName, @required dynamic fieldValue}) {
+    return _firestore.collection(collectionName).where(fieldName, arrayContains: fieldValue).getDocuments();
+  }
+
   Future<QuerySnapshot> getSubCollection({@required String collectionName, @required String documentID, @required String subCollectionName}) {
     return _firestore.collection(collectionName).document(documentID).collection(subCollectionName).getDocuments();
   }
