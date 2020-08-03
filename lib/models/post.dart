@@ -9,7 +9,7 @@ class Post {
 
   static const CollectionName = "posts";
 
-  Post({this.uid = null, this.videoURL = null, this.likes, this.title, this.userID, this.isDraft = false, this.extension = "mp4"});
+  Post({this.uid, this.videoURL, this.likes, this.title, this.userID, this.isDraft = false, this.extension = "mp4"});
 
   Post.fromData(Map<String, dynamic> data) {
     uid = data["uid"];

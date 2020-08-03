@@ -9,7 +9,6 @@ class User {
 
   static const CollectionName = "users";
 
-  @override
   Map<String, dynamic> get data => {
         "uid": uid,
         "name": name,

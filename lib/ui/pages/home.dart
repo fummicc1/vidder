@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/repositories/user.dart';
-import 'package:vidder/states/chat.dart';
 import 'package:vidder/states/create_post.dart';
 import 'package:vidder/states/home.dart';
-import 'package:vidder/states/timeline.dart';
 import 'package:vidder/ui/pages/chat.dart';
 import 'package:vidder/ui/pages/create_post.dart';
 import 'package:vidder/ui/pages/timeline.dart';
@@ -30,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     final HomeState homeState = Provider.of(context, listen: false);
     homeState.getUser().catchError((error) {
       if (error is UserRepositoryError) {
-        if ((error as UserRepositoryError) == UserRepositoryError.NoUser) {
+        if (error == UserRepositoryError.NoUser) {
           homeState.createAnonymousUser();
         }
       }
@@ -84,5 +82,6 @@ class _HomePageState extends State<HomePage> {
     } else if (_currentIndex == 1) {
       return null;
     }
+    return Container();
   }
 }

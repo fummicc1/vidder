@@ -1,7 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vidder/repositories/post.dart';
 import 'package:vidder/states/create_post.dart';
 import 'package:vidder/states/timeline.dart';
 import 'package:vidder/ui/components/error_dialog.dart';
@@ -43,7 +42,9 @@ class CreatePostPage extends StatelessWidget {
                       } catch (error) {
                         showDialog(
                             context: context,
-                            builder: (context) => errorDialog(context));
+                            builder: (context) => errorDialog(context)).then((value) {
+                              Navigator.of(context).pop();
+                        });
                       }
                     }
                   : null,

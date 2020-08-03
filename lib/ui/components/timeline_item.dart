@@ -8,21 +8,24 @@ import 'package:video_player/video_player.dart';
 
 class TimelineItemWidget extends StatefulWidget {
   final Post post;
+  final VideoPlayerController videoPlayerController;
+  final Key key;
 
-  TimelineItemWidget({this.post});
+  TimelineItemWidget({this.key, this.post, this.videoPlayerController});
 
   @override
   _TimelineItemWidgetState createState() => _TimelineItemWidgetState();
 }
 
 class _TimelineItemWidgetState extends State<TimelineItemWidget> {
-  VideoPlayerController videoPlayerController;
+  VideoPlayerController get videoPlayerController =>
+      widget.videoPlayerController;
 
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.network(widget.post.videoURL)
-      ..initialize()
+
+    videoPlayerController
       ..setLooping(true)
       ..addListener(() {
         setState(() {});

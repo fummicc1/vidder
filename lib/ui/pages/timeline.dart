@@ -16,7 +16,7 @@ class _TimelinePageState extends State<TimelinePage> {
       itemCount: timelineState.posts.length,
       itemBuilder: (context, index) {
         final post = timelineState.posts[index];
-        return TimelineItemWidget(post: post);
+        return TimelineItemWidget(key: UniqueKey(), post: post, videoPlayerController: timelineState.videoPlayerControllers[index]);
       },
     );
   }
