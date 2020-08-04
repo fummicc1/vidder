@@ -5,7 +5,6 @@ import 'package:video_player/video_player.dart';
 
 class TimelineState extends ChangeNotifier {
   List<Post> posts = [];
-  List<VideoPlayerController> videoPlayerControllers = [];
 
   TimelineState() {
     fetchPosts(cache: false);
@@ -14,13 +13,6 @@ class TimelineState extends ChangeNotifier {
   fetchPosts({bool cache = true}) async {
     final List<Post> posts = await PostRepository.fetchPosts(cache: cache);
     this.posts = posts;
-    this.videoPlayerControllers = posts.map((post) {
-      final videoPlayerController = VideoPlayerController.network(post.videoURL);
-      return videoPlayerController;
-    }).toList();
-    for (int i = 0; i < videoPlayerControllers.length; i++) {
-      await videoPlayerControllers[i].initialize();
-    }
     notifyListeners();
   }
 

@@ -1,3 +1,4 @@
+import 'package:cached_video_player/cached_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vidder/models/post.dart';
@@ -8,29 +9,28 @@ import 'package:video_player/video_player.dart';
 
 class TimelineItemWidget extends StatefulWidget {
   final Post post;
-  final VideoPlayerController videoPlayerController;
   final Key key;
 
-  TimelineItemWidget({this.key, this.post, this.videoPlayerController});
+  TimelineItemWidget({this.key, this.post});
 
   @override
   _TimelineItemWidgetState createState() => _TimelineItemWidgetState();
 }
 
 class _TimelineItemWidgetState extends State<TimelineItemWidget> {
-  VideoPlayerController get videoPlayerController =>
-      widget.videoPlayerController;
+  CachedVideoPlayerController videoPlayerController;
 
   @override
   void initState() {
     super.initState();
 
-    videoPlayerController
-      ..setLooping(true)
-      ..addListener(() {
-        setState(() {});
-      })
-      ..play();
+    videoPlayerController =
+        CachedVideoPlayerController.network(widget.post.videoURL)
+          ..initialize()
+          ..addListener(() {
+            setState(() {});
+          })
+          ..play();
   }
 
   @override
@@ -47,7 +47,7 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
                 children: [
                   AspectRatio(
                     aspectRatio: videoPlayerController.value?.aspectRatio,
-                    child: VideoPlayer(videoPlayerController),
+                    child: CachedVideoPlayer(videoPlayerController),
                   ),
                   Positioned(
                       top: 16,
@@ -104,7 +104,7 @@ class _TimelineItemWidgetState extends State<TimelineItemWidget> {
 
   @override
   void dispose() {
+    videoPlayerController?.dispose();
     super.dispose();
-    videoPlayerController.dispose();
   }
 }
