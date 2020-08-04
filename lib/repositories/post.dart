@@ -1,15 +1,14 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vidder/api/firebase/firestore.dart';
 import 'package:vidder/api/firebase/storage.dart';
-import 'package:vidder/api/http_client.dart';
 import 'package:vidder/models/post.dart';
 
 class PostRepository {
   static final FirestoreClient _firestoreClient = FirestoreClient();
   static final StorageClient _storageClient = StorageClient();
-  static final HTTPClient _httpClient = HTTPClient();
 
   static List<Post> posts;
 
@@ -34,7 +33,8 @@ class PostRepository {
   static Future createPost({@required Post post, @required File file}) async {
     try {
       final uid = _firestoreClient.getDocumentID(collectionName: Post.CollectionName);
-      final String url = await _httpClient.uploadVideoToCloudinary(file: file);
+      final StorageTaskSnapshot snapshot = await _storageClient.upload(path: "posts", name: "$uid.${post.extension}", file: file);
+      final String url = await _storageClient.getDownloadURL(reference: snapshot.ref);
       post.uid = uid;
       post.videoURL = url;
       return _firestoreClient.setDocument(collectionName: Post.CollectionName, documentName: uid, data: post.data);
